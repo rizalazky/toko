@@ -17,6 +17,7 @@
     <link href="<?php echo base_url() . 'assets/css/font-awesome.css' ?>" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<?php echo base_url() . 'assets/css/4-col-portfolio.css' ?>" rel="stylesheet">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     <style type="text/css">
         .bg {
@@ -40,6 +41,12 @@
 
     <!-- Page Content -->
     <div class="container">
+
+
+
+        <!-- <script>
+            swal("Cek jatuh tempo");
+        </script> -->
 
         <!-- Page Heading -->
         <div class="row">
@@ -149,14 +156,14 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-md-3 portfolio-item">
+                    <!-- <div class="col-md-3 portfolio-item">
                         <div class="menu-item blue" style="height:150px;">
                             <a href="#" data-toggle="modal">
                                 <i class="fa fa-bar-chart"></i>
                                 <p style="text-align:left;font-size:14px;padding-left:5px;">Laporan Harian PerTanggal</p>
                             </a>
                         </div>
-                    </div>
+                    </div> -->
 
                 <?php } ?>
             </div>

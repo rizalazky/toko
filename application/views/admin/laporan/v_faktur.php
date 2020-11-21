@@ -94,24 +94,24 @@
                             <td style="text-align:center;"><?php echo $no; ?></td>
                             <td style="text-align:left;"><?php echo $nabar; ?></td>
 
-                            <td style="text-align:right;"><?php echo 'Rp ' . number_format($harjul); ?></td>
+                            <td style="text-align:right;"><?php echo '' . number_format($harjul); ?></td>
                             <td style="text-align:center;"><?php echo $qty; ?></td>
 
-                            <td style="text-align:right;"><?php echo 'Rp ' . number_format($total); ?></td>
+                            <td style="text-align:right;"><?php echo '' . number_format($total); ?></td>
                         </tr>
-                        <tr>
-                            <td colspan="4" style="text-align:right;"><b>Total</b></td>
-                            <td style="text-align:right;"><b><?php echo 'Rp ' . number_format($b['jual_total']); ?></b></td>
-                        </tr>
+
+
                     <?php } ?>
+
                 </tbody>
-                <!-- <tfoot>
+
+                <tfoot style="margin-top: 10px;">
 
                     <tr>
-                        <td colspan="6" style="text-align:center;"><b>Total</b></td>
+                        <td colspan="4" style="text-align:right; margin-top:10px;"><b>Total</b></td>
                         <td style="text-align:right;"><b><?php echo 'Rp ' . number_format($b['jual_total']); ?></b></td>
                     </tr>
-                </tfoot> -->
+                </tfoot>
             </table>
             <table align="center" style="width:700px; border:none;margin-top:5px;margin-bottom:20px;">
                 <tr>

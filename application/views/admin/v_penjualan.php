@@ -39,8 +39,74 @@
                 <center><?php echo $this->session->flashdata('msg'); ?></center>
                 <h1 class="page-header">Transaksi
                     <small>Penjualan (Eceran)</small>
-                    <a href="#" data-toggle="modal" data-target="#largeModal" class="pull-right"><small>Cari Produk!</small></a>
+                    <!-- <a href="#" data-toggle="modal" data-target="#largeModal" class="pull-right"><small>Cari Produk!</small></a> -->
                 </h1>
+                <table class="table table-bordered table-condensed" style="font-size:11px;" id="mydata">
+                    <thead>
+                        <tr>
+                            <th style="text-align:center;width:40px;">No</th>
+                            <th style="width:120px;">Kode Barang</th>
+                            <th style="width:120px;">Kode Barcode</th>
+                            <th style="width:240px;">Nama Barang</th>
+                            <th>Satuan</th>
+                            <th style="width:100px;">Harga (Eceran)</th>
+                            <th>Stok</th>
+                            <th>Diskon</th>
+                            <th>jumlah</th>
+                            <th style="width:100px;text-align:center;">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        $no = 0;
+                        foreach ($data->result_array() as $a) :
+                            $no++;
+                            $id = $a['barang_id'];
+                            $kode_barcode = $a['barang_kbarcode'];
+                            $nm = $a['barang_nama'];
+                            $satuan = $a['barang_satuan'];
+                            $harpok = $a['barang_harpok'];
+                            $harjul = $a['barang_harjul'];
+                            $harjul_grosir = $a['barang_harjul_grosir'];
+                            $stok = $a['barang_stok'];
+                            $min_stok = $a['barang_min_stok'];
+                            $kat_id = $a['barang_kategori_id'];
+                            $kat_nama = $a['kategori_nama'];
+                        ?>
+                            <tr>
+                                <td style="text-align:center;"><?php echo $no; ?></td>
+                                <td><?php echo $id; ?></td>
+                                <td><?php echo $kode_barcode; ?></td>
+                                <td><?php echo $nm; ?></td>
+                                <td style="text-align:center;"><?php echo $satuan; ?></td>
+                                <td style="text-align:right;"><?php echo 'Rp ' . number_format($harjul); ?></td>
+                                <td style="text-align:center;"><?php echo $stok; ?></td>
+                                <form action="<?php echo base_url() . 'admin/penjualan/add_to_cart' ?>" method="post">
+                                    <input type="hidden" name="kode_brg" value="<?php echo $id ?>">
+                                    <input type="hidden" name="kode_barcode" value="<?php echo $kode_barcode ?>">
+                                    <input type="hidden" name="nabar" value="<?php echo $nm; ?>">
+                                    <input type="hidden" name="satuan" value="<?php echo $satuan; ?>">
+                                    <input type="hidden" name="stok" value="<?php echo $stok; ?>">
+                                    <input type="hidden" name="harjul" value="<?php echo number_format($harjul); ?>">
+                                    <td><input type="number" name="diskon" value="0"></td>
+                                    <td><input type="number" name="qty" value="1" min="1" max="<?php echo $stok; ?>" class="form-control input-sm" style="width:90px;margin-right:5px;" required></td>
+                                    <td>
+                                        <?php
+                                        if ($stok <= 0) { ?>
+                                            <button type="" class="btn btn-xs btn-denger" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
+                                        <?php
+                                        } else {
+                                        ?>
+                                            <button type="submit" class="btn btn-xs btn-info" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
+                                        <?php
+                                        }
+                                        ?>
+                                </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </td>
+                </table>
             </div>
         </div>
         <!-- /.row -->
@@ -48,7 +114,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <form action="<?php echo base_url() . 'admin/penjualan/add_to_cart' ?>" method="post">
-                    <table>
+                    <!-- <table>
                         <tr>
                             <th>Kode Barang</th>
                         </tr>
@@ -57,7 +123,7 @@
                         </tr>
                         <div id="detail_barang" style="position:absolute;">
                         </div>
-                    </table>
+                    </table> -->
                 </form>
                 <table class="table table-bordered table-condensed" style="font-size:11px;margin-top:10px;">
                     <thead>
@@ -95,7 +161,7 @@
                 <form action="<?php echo base_url() . 'admin/penjualan/simpan_penjualan' ?>" method="post">
                     <table>
                         <tr>
-                            <td style="width:760px;" rowspan="2"><button type="submit" class="btn btn-info btn-lg"> Simpan</button></td>
+                            <td style="width:760px;" rowspan="2"></td>
                             <th style="width:140px;">Total Belanja(Rp)</th>
                             <th style="text-align:right;width:140px;"><input type="text" name="total2" value="<?php echo number_format($this->cart->total()); ?>" class="form-control input-sm" style="text-align:right;margin-bottom:5px;" readonly></th>
                             <input type="hidden" id="total" name="total" value="<?php echo $this->cart->total(); ?>" class="form-control input-sm" style="text-align:right;margin-bottom:5px;" readonly>
@@ -110,11 +176,22 @@
                             <th>Kembalian(Rp)</th>
                             <th style="text-align:right;"><input type="text" id="kembalian" name="kembalian" class="form-control input-sm" style="text-align:right;margin-bottom:5px;" required></th>
                         </tr>
+                        <br>
+                        <tr>
+                            <td></td>
+                            <th></th>
+                            <th style="text-align:right;"><button type="submit" class="btn btn-info btn-lg"> Simpan</button></th>
+                        </tr>
 
                     </table>
                 </form>
                 <hr />
+
+
+
             </div>
+
+
             <!-- /.row -->
             <!-- ============ MODAL ADD =============== -->
             <div class="modal fade" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="largeModal" aria-hidden="true">
@@ -126,68 +203,7 @@
                         </div>
                         <div class="modal-body" style="overflow:scroll;height:500px;">
 
-                            <table class="table table-bordered table-condensed" style="font-size:11px;" id="mydata">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align:center;width:40px;">No</th>
-                                        <th style="width:120px;">Kode Barang</th>
-                                        <th style="width:240px;">Nama Barang</th>
-                                        <th>Satuan</th>
-                                        <th style="width:100px;">Harga (Eceran)</th>
-                                        <th>Stok</th>
-                                        <th>Diskon</th>
-                                        <th>jumlah</th>
-                                        <th style="width:100px;text-align:center;">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    $no = 0;
-                                    foreach ($data->result_array() as $a) :
-                                        $no++;
-                                        $id = $a['barang_id'];
-                                        $nm = $a['barang_nama'];
-                                        $satuan = $a['barang_satuan'];
-                                        $harpok = $a['barang_harpok'];
-                                        $harjul = $a['barang_harjul'];
-                                        $harjul_grosir = $a['barang_harjul_grosir'];
-                                        $stok = $a['barang_stok'];
-                                        $min_stok = $a['barang_min_stok'];
-                                        $kat_id = $a['barang_kategori_id'];
-                                        $kat_nama = $a['kategori_nama'];
-                                    ?>
-                                        <tr>
-                                            <td style="text-align:center;"><?php echo $no; ?></td>
-                                            <td><?php echo $id; ?></td>
-                                            <td><?php echo $nm; ?></td>
-                                            <td style="text-align:center;"><?php echo $satuan; ?></td>
-                                            <td style="text-align:right;"><?php echo 'Rp ' . number_format($harjul); ?></td>
-                                            <td style="text-align:center;"><?php echo $stok; ?></td>
-                                            <form action="<?php echo base_url() . 'admin/penjualan/add_to_cart' ?>" method="post">
-                                                <input type="hidden" name="kode_brg" value="<?php echo $id ?>">
-                                                <input type="hidden" name="nabar" value="<?php echo $nm; ?>">
-                                                <input type="hidden" name="satuan" value="<?php echo $satuan; ?>">
-                                                <input type="hidden" name="stok" value="<?php echo $stok; ?>">
-                                                <input type="hidden" name="harjul" value="<?php echo number_format($harjul); ?>">
-                                                <td><input type="number" name="diskon" value="0"></td>
-                                                <td><input type="number" name="qty" value="1" min="1" max="<?php echo $stok; ?>" class="form-control input-sm" style="width:90px;margin-right:5px;" required></td>
-                                                <td>
-                                                    <?php
-                                                    if ($stok <= 0) { ?>
-                                                        <button type="" class="btn btn-xs btn-denger" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <button type="submit" class="btn btn-xs btn-info" title="Pilih"><span class="fa fa-edit"></span> Pilih</button>
-                                                    <?php
-                                                    }
-                                                    ?>
-                                            </form>
-                                            </td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                    </td>
-                            </table>
+
 
                         </div>
 
