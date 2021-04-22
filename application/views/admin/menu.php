@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url() . 'welcome' ?>">Toko HENNY / DIDI</a>
+            <a class="navbar-brand" href="<?php echo base_url() . 'welcome' ?>">Toko GV MULYA JAYA</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
@@ -159,10 +159,11 @@
 
 
                 </div>
+                <script src="<?php echo base_url() . 'assets/js/jquery.js' ?>"></script>
                 <!-- Bootstrap Core JavaScript -->
                 <script src="<?php echo base_url() . 'assets/dist/js/bootstrap-select.min.js' ?>"></script>
                 <script src="<?php echo base_url() . 'assets/js/bootstrap.min.js' ?>"></script>
-                <script src="<?php echo base_url() . 'assets/js/dataTables.bootstrap.min.js' ?>"></script>
+                <!-- <script src="<?php echo base_url() . 'assets/js/dataTables.bootstrap.min.js' ?>"></script> -->
                 <script src="<?php echo base_url() . 'assets/js/jquery.dataTables.min.js' ?>"></script>
                 <script src="<?php echo base_url() . 'assets/js/moment.js' ?>"></script>
                 <script src="<?php echo base_url() . 'assets/js/bootstrap-datetimepicker.min.js' ?>"></script>
@@ -172,11 +173,69 @@
                             format: 'YYYY-MM-DD',
                         });
                     });
-                </script>
+                    </script>
                 <script type="text/javascript">
+                 
                     $(document).ready(function() {
-                        $('#mydata').DataTable();
+                        var table=$('#mydata').DataTable({
+                            serverSide:true,
+                            processing:true,
+                            order:[],
+                            ajax:{
+                                url:"<?php echo base_url('/admin/barang/get_data_barang')?>",
+                                type:"POST"
+                            },
+                            columnDefs: [
+                            { 
+                                targets: [ 0 ], 
+                                orderable: false, 
+                            },
+                            ],
+                            columns: [
+                                {title:"No"},
+                                { title: "Kode Barang" },
+                                { title: "Kode Barcode" },
+                                { title: "Nama Barang" },
+                                { title: "Satuan" },
+                                { title: "Harga Pokok" },
+                                { title: "Harga (Eceran)" },
+                                { title: "Harga (Grosir)" },
+                                { title: "Stok" },
+                                { title: "Min Stok" },
+                                { title: "Kategori" },
+                                {title : "Aksi",defaultContent :"<button class='btn btn-xs btn-warning btn-edit' data-toggle='modal' title='Edit'><span class='fa fa-edit'></span> Edit</button><a class='btn btn-xs btn-danger btn-delete' data-toggle='modal' title='Hapus'><span class='fa fa-close'></span> Hapus</a>"}
+                            ],
+                        });
+
+                        $('#mydata tbody').on('click', '.btn-edit', function () {
+                            var row = $(this).closest('tr');
+                            
+                            var data = table.row( row ).data();
+                            $('input[name="kobar"]').val(data[1]);
+                            $('input[name="kode_barcode"]').val(data[2]);
+                            $('input[name="nabar"]').val(data[3]);
+                            $('select[name="kategori"]').val(data[10]).change();
+                            $('select[name="satuan"]').val(data[4]);
+                            $('input[name="harpok"]').val(data[5]);
+                            $('input[name="harjul"]').val(data[6]);
+                            $('input[name="harjul_grosir"]').val(data[7]);
+                            $('input[name="stok"]').val(data[8]);
+                            $('input[name="min_stok"]').val(data[9]);
+                            $('#modalEditPelanggan').modal('show')
+                            console.log(data[5]);
+                            console.log(data);
+                        });
+
+                        $('#mydata tbody').on('click', '.btn-delete', function () {
+                            var row = $(this).closest('tr');
+                            
+                            var data = table.row( row ).data();
+                            $('input[name="kode"]').val(data[1]);
+                          
+                            $('#modalHapusPelanggan').modal('show')
+                        });
                     });
+                    
                 </script>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">Tutup</button>
