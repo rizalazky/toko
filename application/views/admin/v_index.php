@@ -9,7 +9,7 @@
     <meta name="description" content="Produk By Mfikri">
     <meta name="author" content="">
 
-    <title>Welcome Toko GV MULYA JAYA</title>
+    <title>Welcome Tb Jaya Berkah</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo base_url() . 'assets/css/bootstrap.min.css' ?>" rel="stylesheet">
@@ -52,7 +52,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header" style="color:#fcc;">Welcome to
-                    <small>TOKO GV MULYA JAYA</small>
+                    <small>TB JAYA BERKAH</small>
                 </h1>
             </div>
         </div>

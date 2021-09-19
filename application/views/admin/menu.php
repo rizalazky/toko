@@ -13,7 +13,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo base_url() . 'welcome' ?>">Toko GV MULYA JAYA</a>
+            <a class="navbar-brand" href="<?php echo base_url() . 'welcome' ?>">TB JAYA BERKAH</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
